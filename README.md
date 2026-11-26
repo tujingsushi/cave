@@ -33,7 +33,7 @@
 
 ---
 
-## 二、新增一篇（日常只做这一件事）
+## 二、新增一篇
 
 在 `_posts/` 里新建一个文件，命名：
 
@@ -123,73 +123,8 @@ tags: [随笔]
 
 ---
 
-## 五、本地预览（可选）
 
-线上构建就够用；但想改样式时立刻看到效果，可以在本地跑。需要 Ruby（Windows 推荐用 RubyInstaller）：
-
-```bash
-bundle install
-bundle exec jekyll serve
-```
-
-打开 `http://127.0.0.1:4000`。改文件会自动重建。
-
-`github-pages` 这个 gem 在 Windows 上偶尔装不上（要编译原生扩展）。装不动就退一步，用普通 Jekyll：
-
-```bash
-gem install jekyll jekyll-feed jekyll-sitemap
-jekyll serve
-```
-
-没装 Ruby 也不影响写作 —— 直接 push，然后在仓库的 **Actions** 标签页看 `pages build and deployment` 的结果。
-
----
-
-## 六、部署
-
-**Settings → Pages → Source 选 Deploy from a branch → `main` / `(root)` → Save。**
-
-Jekyll 由 GitHub 在服务端构建，不需要 Actions 配置，也不需要提交 `_site/`。
-
-### 仓库名与网址
-
-| 仓库名 | 配置 | 网址 |
-| --- | --- | --- |
-| `你的用户名.github.io` | `_config.yml` 里 `baseurl: ""` | `https://你的用户名.github.io` |
-| `my-site` 之类 | `_config.yml` 里 `baseurl: "/my-site"` | `https://你的用户名.github.io/my-site/` |
-
-`baseurl` 只写路径，结尾不要带 `/`。想换成自己的域名，在根目录加 `CNAME` 文件（一行域名），并在 Pages 设置里填同一个域名、勾选 Enforce HTTPS。
-
-> 注意：仓库根目录**不要**再放 `.nojekyll` 文件，它是用来跳过 Jekyll 构建的，和现在的方案冲突。
-
----
-
-## 七、自动生成的东西，不用手工维护
-
-| 产物 | 地址 | 来源 |
-| --- | --- | --- |
-| shell 列表 | `/shell/` | `_posts` 目录扫描，按日期倒序 |
-| 上一篇 / 下一篇 | 每篇文章底部 | `page.previous` / `page.next` |
-| RSS | `/feed.xml` | `jekyll-feed` 插件 |
-| 站点地图 | `/sitemap.xml` | `jekyll-sitemap` 插件 |
-| 文章网址 | `/shell/年-月-日/短名/` | `_config.yml` 里的 `permalink` |
-
----
-
-## 八、替换占位内容
-
-| 占位符 | 位置 |
-| --- | --- |
-| `站点名` | `_config.yml` 的 `title` |
-| `你的名字` | `index.html` 的打招呼 |
-| 标语与说明 | `index.html` 的 `.intro-quote`、`shell/index.html` 的 `.page-desc` |
-| 标题占位一 / 二 / 三 | `_posts/` 里的示例文章，可以整篇替换或删除 |
-
-带虚线下划线（`.ph` 样式）的文字就是占位符，全部换完后可以删掉 `style.css` 里的 `.ph` 规则。
-
----
-
-## 九、出问题先看这里
+## 四、出问题先看这里
 
 - **构建失败**：仓库 **Actions** 标签页 → 最新的 `pages build and deployment` → 日志里会写哪个文件哪一行出错；常见原因是 front matter 少了一条 `---`。
 - **文章没出现**：文件名日期格式、未来日期、`published: false` 三选一。
