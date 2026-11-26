@@ -3,10 +3,12 @@ title: 站点名
 description: 个人主页与记录。
 
 # ===== 地址（重要）=====
-# 用户站点（仓库名 xxx.github.io）两项都留空。
-# 项目站点（仓库名 my-site）把 baseurl 改成 "/my-site"。
-url: ""
-baseurl: ""
+# 本站部署在 https://tujingsushi.github.io/cave/，所以：
+#   url     = 域名，不带路径
+#   baseurl = 仓库名，以 / 开头、结尾不要 /
+# 以后换成用户站点（仓库名 xxx.github.io），把 baseurl 改回 ""
+url: "https://tujingsushi.github.io"
+baseurl: "/cave"
 
 timezone: Asia/Shanghai
 
