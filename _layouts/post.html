@@ -4,7 +4,9 @@ layout: default
 <article class="post">
   <header class="post-head">
     <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-Y 年 %-m 月 %-d 日" }}</time>
+    {%- if page.title %}
     <h1 class="post-title">{{ page.title }}</h1>
+    {%- endif %}
     {%- if page.tags and page.tags.size > 0 %}
     <p class="post-tags">
       {%- for tag in page.tags %}
@@ -20,10 +22,14 @@ layout: default
 
   <nav class="post-nav" aria-label="shell 导航">
     {%- if page.previous %}
-    <a href="{{ page.previous.url | relative_url }}">← 上一篇：{{ page.previous.title }}</a>
+    {%- assign prev_label = page.previous.title %}
+    {%- unless prev_label %}{% assign prev_label = page.previous.date | date: "%Y.%m.%d" %}{% endunless %}
+    <a href="{{ page.previous.url | relative_url }}">← 上一篇：{{ prev_label }}</a>
     {%- endif %}
     {%- if page.next %}
-    <a href="{{ page.next.url | relative_url }}">下一篇：{{ page.next.title }} →</a>
+    {%- assign next_label = page.next.title %}
+    {%- unless next_label %}{% assign next_label = page.next.date | date: "%Y.%m.%d" %}{% endunless %}
+    <a href="{{ page.next.url | relative_url }}">下一篇：{{ next_label }} →</a>
     {%- endif %}
     <a class="post-back" href="{{ '/shell/' | relative_url }}">返回 shell</a>
   </nav>

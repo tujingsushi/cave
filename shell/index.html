@@ -14,12 +14,17 @@ description: 不定期更新的记录。
   {%- if site.posts.size > 0 %}
   <ul class="entry-list">
     {%- for post in site.posts %}
+    {%- assign entry_excerpt = post.excerpt | strip_html | normalize_whitespace | truncate: 50 %}
     <li class="entry">
       <a href="{{ post.url | relative_url }}">
         <time class="entry-date" datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%Y.%m.%d" }}</time>
         <span class="entry-body">
+          {%- if post.title %}
           <span class="entry-title">{{ post.title }}</span>
-          <span class="entry-sub">{{ post.excerpt | strip_html | normalize_whitespace | truncate: 50 }}</span>
+          <span class="entry-sub">{{ entry_excerpt }}</span>
+          {%- else %}
+          <span class="entry-title">{{ entry_excerpt | default: "（无标题）" }}</span>
+          {%- endif %}
         </span>
       </a>
     </li>
