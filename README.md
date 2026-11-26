@@ -124,7 +124,7 @@ tags: [随笔]
 ---
 
 
-## 四、出问题先看这里
+## 五、出问题先看这里
 
 - **构建失败**：仓库 **Actions** 标签页 → 最新的 `pages build and deployment` → 日志里会写哪个文件哪一行出错；常见原因是 front matter 少了一条 `---`。
 - **文章没出现**：文件名日期格式、未来日期、`published: false` 三选一。
