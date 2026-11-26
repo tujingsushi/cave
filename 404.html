@@ -1,0 +1,23 @@
+---
+layout: null
+permalink: /404.html
+sitemap: false
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面不存在 · {{ site.title }}</title>
+  <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body>
+  <main class="error-page">
+    <p class="error-code">404</p>
+    <h1>这个页面不存在</h1>
+    <p>链接可能已经失效，或者地址输错了。</p>
+    <a class="back" href="{{ '/' | relative_url }}">← 返回 home</a>
+  </main>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# 顶栏菜单：加一页就在这里加一行，五个页面同时生效
+- label: home
+  url: /
+- label: shell
+  url: /shell/

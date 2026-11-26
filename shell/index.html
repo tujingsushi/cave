@@ -1,0 +1,31 @@
+---
+layout: default
+title: shell
+description: 不定期更新的记录。
+---
+<section class="page-head">
+  <h1>shell</h1>
+  <p class="page-desc">
+    <span class="ph">这里写一句说明，比如：不定期更新的碎碎念，不保证有用。</span>
+  </p>
+</section>
+
+<section class="block">
+  {%- if site.posts.size > 0 %}
+  <ul class="entry-list">
+    {%- for post in site.posts %}
+    <li class="entry">
+      <a href="{{ post.url | relative_url }}">
+        <time class="entry-date" datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+        <span class="entry-body">
+          <span class="entry-title">{{ post.title }}</span>
+          <span class="entry-sub">{{ post.excerpt | strip_html | normalize_whitespace | truncate: 50 }}</span>
+        </span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- else %}
+  <p class="page-desc">还没有内容。在 <code>_posts/</code> 里新建一个 Markdown 文件就会出现在这里。</p>
+  {%- endif %}
+</section>

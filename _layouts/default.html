@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }} · 个人主页{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: site.description | escape }}">
+  <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+  {% feed_meta %}
+</head>
+<body{% if page.body_class %} class="{{ page.body_class }}"{% endif %}>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="site-name" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+
+      <!-- 折叠菜单：原生 details 元素 + 图标，不依赖 JS -->
+      <details class="menu">
+        <summary>
+          <span class="menu-icon" aria-hidden="true"></span>
+          <span class="sr-only">菜单</span>
+        </summary>
+        <nav class="menu-panel" aria-label="主导航">
+          {%- for item in site.data.nav %}
+          <a href="{{ item.url | relative_url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
+          {%- endfor %}
+        </nav>
+      </details>
+    </div>
+  </header>
+
+  <main class="wrap">
+    {{ content }}
+  </main>
+</body>
+</html>

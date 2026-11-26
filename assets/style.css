@@ -1,0 +1,426 @@
+/* ============================================================
+   个人主页 · 简洁版
+   想换配色，只改 :root 里的变量即可
+   ============================================================ */
+
+:root {
+  --bg: #fdfdfb;
+  --text: #191a1c;
+  --muted: #6a6c72;
+  --line: #e6e6e2;
+  --soft: #f4f4f0;
+  --accent: #3b5bdb;
+  --wrap: 760px;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121316;
+    --text: #e9e9ec;
+    --muted: #9a9da6;
+    --line: #26282e;
+    --soft: #1a1c21;
+    --accent: #8ea2ff;
+  }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover { color: var(--accent); }
+
+/* 只给读屏软件看的文字（图标按钮需要它来说明用途） */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* 占位符：提示这里需要替换。全部替换完后可以把 .ph 的样式删掉 */
+.ph {
+  border-bottom: 1px dashed #b9bcc2;
+  border-bottom-color: color-mix(in srgb, var(--muted) 55%, transparent);
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--soft);
+  color: var(--text);
+}
+
+/* ---------- 顶栏 ---------- */
+
+.site-header {
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 64px;
+}
+
+.site-name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.site-name:hover { color: var(--accent); }
+
+/* 折叠菜单：原生 <details> + 汉堡图标，不依赖 JS，键盘可操作 */
+
+.menu {
+  position: relative;
+  margin-left: auto;
+}
+
+.menu > summary {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-right: -8px;
+  border-radius: 10px;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.menu > summary::-webkit-details-marker { display: none; }
+.menu > summary:hover { color: var(--text); background: var(--soft); }
+.menu[open] > summary { color: var(--text); background: var(--soft); }
+
+/* 三条横线；展开时收成一个 × */
+.menu-icon,
+.menu-icon::before,
+.menu-icon::after {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.18s ease, opacity 0.18s ease,
+    background-color 0.18s ease;
+}
+.menu-icon { position: relative; }
+.menu-icon::before,
+.menu-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.menu-icon::before { top: -6px; }
+.menu-icon::after { top: 6px; }
+
+.menu[open] .menu-icon { background: transparent; }
+.menu[open] .menu-icon::before { transform: translateY(6px) rotate(45deg); }
+.menu[open] .menu-icon::after { transform: translateY(-6px) rotate(-45deg); }
+
+.menu-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  box-shadow: 0 12px 32px rgba(20, 20, 40, 0.12);
+}
+
+.menu-panel a {
+  padding: 9px 12px;
+  border-radius: 6px;
+  font-size: 14.5px;
+  color: var(--text);
+}
+.menu-panel a:hover {
+  background: var(--soft);
+  color: var(--accent);
+  text-decoration: none;
+}
+.menu-panel a[aria-current="page"] {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* ---------- 首屏 ---------- */
+
+.intro {
+  padding: clamp(64px, 10vw, 104px) 0 clamp(40px, 6vw, 56px);
+}
+
+.intro-greeting {
+  margin: 0;
+  font-size: clamp(1.7rem, 4.4vw, 2.5rem);
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.intro-quote {
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+/* home 页只放一句招呼：内容在视口中垂直居中 */
+.page-home {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-home main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.page-home .intro {
+  width: 100%;
+  padding: clamp(72px, 12vw, 120px) 0 clamp(96px, 16vh, 180px);
+}
+
+/* ---------- 区块 ---------- */
+
+.block {
+  padding: 36px 0;
+  border-top: 1px solid var(--line);
+}
+
+/* 没有页脚了，最后一个区块自己留出底部空白 */
+main > .block:last-child { padding-bottom: clamp(48px, 7vw, 72px); }
+
+/* ---------- 列表条目 ---------- */
+
+.entry-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entry + .entry { border-top: 1px solid var(--line); }
+
+.entry > a {
+  display: grid;
+  grid-template-columns: 5.6rem 1fr;
+  gap: 16px;
+  padding: 15px 0;
+  align-items: baseline;
+}
+.entry > a:hover { text-decoration: none; }
+
+.entry-date {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.entry-body { display: block; min-width: 0; }
+
+.entry-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.entry > a:hover .entry-title { color: var(--accent); }
+
+.entry-sub {
+  display: block;
+  margin-top: 3px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ---------- 内页标题 ---------- */
+
+.page-head {
+  padding: clamp(48px, 7vw, 72px) 0 8px;
+}
+
+.page-head h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 2.1rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.page-desc {
+  margin: 14px 0 0;
+  max-width: 34em;
+  color: var(--muted);
+  font-size: 14.5px;
+}
+
+/* ---------- 记录正文 ---------- */
+
+.post-head {
+  padding: clamp(48px, 7vw, 72px) 0 0;
+}
+
+.post-date {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.post-title {
+  margin: 12px 0 0;
+  font-size: clamp(1.6rem, 3.8vw, 2rem);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.post-body {
+  margin-top: 34px;
+  padding-top: 30px;
+  border-top: 1px solid var(--line);
+}
+
+.post-body p {
+  margin: 0 0 1.5em;
+  font-size: 16.5px;
+  line-height: 1.95;
+}
+.post-body p:last-child { margin-bottom: 0; }
+
+.post-body blockquote {
+  margin: 1.8em 0;
+  padding: 2px 0 2px 18px;
+  border-left: 2px solid var(--line);
+  color: var(--muted);
+}
+.post-body blockquote p { margin: 0; }
+
+.post-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 12px 20px;
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+}
+.post-nav a:hover { color: var(--accent); }
+
+/* 返回列表永远靠右 */
+.post-nav .post-back { margin-left: auto; }
+
+/* 记录页同样没有页脚，正文底部留白 */
+.post { padding-bottom: clamp(56px, 9vw, 88px); }
+
+/* ---------- 404 ---------- */
+
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 24px;
+}
+.error-code {
+  margin: 0;
+  font-size: 12.5px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+.error-page h1 { margin: 0; font-size: 1.7rem; font-weight: 600; }
+.error-page p { margin: 0; color: var(--muted); }
+.error-page .back {
+  margin-top: 18px;
+  font-size: 14.5px;
+  color: var(--accent);
+}
+
+/* ---------- 小屏 ---------- */
+
+@media (max-width: 560px) {
+  .header-inner { min-height: 58px; }
+  .menu > summary { width: 38px; height: 38px; margin-right: -6px; }
+  .menu-panel { min-width: 140px; }
+  .page-desc { font-size: 14.5px; }
+
+  .entry > a {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 14px 0;
+  }
+  .entry-date { font-size: 12px; }
+
+  .post-body p { font-size: 16px; }
+  .post-nav { justify-content: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; }
+}

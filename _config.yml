@@ -1,0 +1,39 @@
+# ===== 站点信息 =====
+title: 站点名
+description: 个人主页与记录。
+
+# ===== 地址（重要）=====
+# 用户站点（仓库名 xxx.github.io）两项都留空。
+# 项目站点（仓库名 my-site）把 baseurl 改成 "/my-site"。
+url: ""
+baseurl: ""
+
+timezone: Asia/Shanghai
+
+# ===== 文章地址 =====
+# _posts/2026-12-01-hello.md → /shell/2026-12-01/hello/
+permalink: /shell/:year-:month-:day/:title/
+
+# ===== 插件（GitHub Pages 原生支持这几个，无需 Actions）=====
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+feed:
+  path: feed.xml
+
+# ===== 默认值 =====
+# _posts 里的文章不用写 layout，自动套用 post 布局
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+# 这些文件不参与构建
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
